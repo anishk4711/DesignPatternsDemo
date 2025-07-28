@@ -17,7 +17,7 @@ namespace DesignPatternsDemo.Controllers
         }
 
         [HttpGet("BuilderDP")]
-        public ActionResult<Customer> GetCustomer()
+        public Customer GetCustomer()
         {
             return
                 CustomerBuilder.CreateCustomerBuilder()
@@ -33,7 +33,7 @@ namespace DesignPatternsDemo.Controllers
 
 
         [HttpGet("PrototypeDP")]
-        public ActionResult<Product> GetProduct()
+        public Product GetProduct()
         {
             Product originalProd = new Product
             {
@@ -52,6 +52,18 @@ namespace DesignPatternsDemo.Controllers
             Product clonedProd = originalProd.Clone();
 
             return clonedProd;
+        }
+
+
+        [HttpGet("PrototypeDPWithSerialization")]
+        public Customer GetClonedCustomer()
+        {
+            Customer? originalCustomer = this.GetCustomer();
+            if (originalCustomer != null)
+            {
+                return originalCustomer.CloneWithSerialization<Customer>();
+            }
+            return new Customer();
         }
     }
 }
