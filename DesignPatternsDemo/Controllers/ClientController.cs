@@ -1,4 +1,5 @@
 using DesignPatternsDemo.BuilderDP;
+using DesignPatternsDemo.PrototypeDP;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesignPatternsDemo.Controllers
@@ -15,8 +16,8 @@ namespace DesignPatternsDemo.Controllers
             _logger = logger;
         }
 
-        [HttpGet("GetCustomer")]
-        public ActionResult<Customer> Get()
+        [HttpGet("BuilderDP")]
+        public ActionResult<Customer> GetCustomer()
         {
             return
                 CustomerBuilder.CreateCustomerBuilder()
@@ -28,6 +29,29 @@ namespace DesignPatternsDemo.Controllers
                      .SetStreet("123 Main St")
                      .SetZipCode("560001"))
                  .Build();
+        }
+
+
+        [HttpGet("PrototypeDP")]
+        public ActionResult<Product> GetProduct()
+        {
+            Product originalProd = new Product
+            {
+                Name = "Laptop",
+                Price = 1200.00m,
+                Description = "High performance laptop",
+                Category = "Electronics",
+                InventoryLocation = new Location
+                { 
+                    Warehouse = "Bangalore",
+                    Shelf = "560002"
+                }
+            };
+
+
+            Product clonedProd = originalProd.Clone();
+
+            return clonedProd;
         }
     }
 }
