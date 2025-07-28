@@ -1,0 +1,14 @@
+﻿namespace DesignPatternsDemo.BuilderDP
+{
+    public class Address
+    {
+        public string? Street { get; init; }
+        public string? City { get; init; }
+        public string? State { get; init; }
+        public string? ZipCode { get; init; }
+        public override string ToString()
+        {
+            return $"{Street}, {City}, {State} {ZipCode}";
+        }
+    }
+}
